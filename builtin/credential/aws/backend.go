@@ -275,6 +275,15 @@ func (b *backend) resolveArnToRealUniqueId(ctx context.Context, s logical.Storag
 			return "", fmt.Errorf("got nil result from GetUser")
 		}
 		return *userInfo.User.UserId, nil
+	case "group":
+		groupInfo, err := iamClient.GetGroup(&iam.GetGroupInput{GroupName: &entity.FriendlyName})
+		if err != nil {
+			return "", awsutil.AppendAWSError(err)
+		}
+		if groupInfo == nil {
+			return "", fmt.Errorf("got nil result from GetGroup")
+		}
+		return *groupInfo.Group.GroupId, nil
 	case "role":
 		roleInfo, err := iamClient.GetRole(&iam.GetRoleInput{RoleName: &entity.FriendlyName})
 		if err != nil {

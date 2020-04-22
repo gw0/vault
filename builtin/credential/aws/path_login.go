@@ -1457,6 +1457,7 @@ func parseIamArn(iamArn string) (*iamEntity, error) {
 		entity.FriendlyName = parts[1]
 		entity.SessionInfo = parts[2]
 	case "user":
+	case "group":
 	case "role":
 	case "instance-profile":
 	default:
